@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://dl42c8w8urp78"]
+
+[ext_resource type="Texture2D" uid="uid://duanugkfvsgl3" path="res://assets/alien.png" id="1_3gx41"]
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_t88s0"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5qey1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_3gx41")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mn8mo"]
+size = Vector2(16, 16)
+
+[node name="Player" type="Area2D"]
+script = ExtResource("1_t88s0")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_5qey1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_mn8mo")

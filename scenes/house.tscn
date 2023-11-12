@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://dt08vbl7orgey"]
+
+[ext_resource type="Script" path="res://scripts/house.gd" id="1_cnimp"]
+[ext_resource type="Texture2D" uid="uid://dgf7df85gmsmj" path="res://assets/house.png" id="1_gastg"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_d6rbs"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_gastg")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dc0ge"]
+size = Vector2(16, 14)
+
+[node name="House" type="Area2D"]
+script = ExtResource("1_cnimp")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_d6rbs")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_dc0ge")

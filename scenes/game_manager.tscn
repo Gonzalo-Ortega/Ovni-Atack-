@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://cuar8lp1vg3ci"]
+
+[ext_resource type="PackedScene" uid="uid://dl42c8w8urp78" path="res://scenes/player.tscn" id="1_3wiyr"]
+[ext_resource type="PackedScene" uid="uid://by1nf4ix2m4nf" path="res://scenes/house_spawner.tscn" id="1_x0px0"]
+
+[node name="GameManager" type="Node"]
+
+[node name="Background" type="ColorRect" parent="."]
+offset_right = 176.0
+offset_bottom = 99.0
+color = Color(0, 0, 0, 1)
+
+[node name="HouseSpawner" parent="." instance=ExtResource("1_x0px0")]
+
+[node name="Player" parent="." instance=ExtResource("1_3wiyr")]
+position = Vector2(23, 24)
