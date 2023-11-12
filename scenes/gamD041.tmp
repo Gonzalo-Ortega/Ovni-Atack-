@@ -1,10 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://cuar8lp1vg3ci"]
+[gd_scene load_steps=3 format=3 uid="uid://cuar8lp1vg3ci"]
 
 [ext_resource type="PackedScene" uid="uid://dl42c8w8urp78" path="res://scenes/player.tscn" id="1_3wiyr"]
 [ext_resource type="PackedScene" uid="uid://by1nf4ix2m4nf" path="res://scenes/house_spawner.tscn" id="1_x0px0"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_nwlem"]
-size = Vector2(20, 106)
 
 [node name="GameManager" type="Node"]
 
@@ -17,9 +14,3 @@ color = Color(0, 0, 0, 1)
 
 [node name="Player" parent="." instance=ExtResource("1_3wiyr")]
 position = Vector2(23, 24)
-
-[node name="RigidBody2D" type="RigidBody2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
-position = Vector2(173, 48)
-shape = SubResource("RectangleShape2D_nwlem")

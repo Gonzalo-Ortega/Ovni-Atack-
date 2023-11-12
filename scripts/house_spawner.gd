@@ -1,6 +1,7 @@
 extends Node
 
 var House = preload("res://scenes/house.tscn")
+var Laser = preload("res://scenes/laser.tscn")
 
 var rng = RandomNumberGenerator.new()
 
@@ -17,7 +18,9 @@ func _process(delta):
 
 func _on_timer_timeout():
 	var house = House.instantiate()
-	house.position = Vector2(200, rng.randi_range(16, 85))
+	var pos = rng.randi_range(16, 85)
+	house.position = Vector2(200, pos)
+
 	add_child(house)
 	$Timer.wait_time = rng.randi_range(0.5, 1)
 	$Timer.start()

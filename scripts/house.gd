@@ -1,4 +1,4 @@
-extends Area2D
+extends StaticBody2D
 
 var acceleration = 5
 var base_velocity = Vector2(-0.5, 0)

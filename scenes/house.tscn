@@ -17,7 +17,7 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dc0ge"]
 size = Vector2(16, 14)
 
-[node name="House" type="Area2D"]
+[node name="House" type="StaticBody2D"]
 script = ExtResource("1_cnimp")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
