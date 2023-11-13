@@ -6,6 +6,7 @@ var max_speed = 2
 var friction = 0.1
 var velocity = Vector2()
 
+var Laser = preload("res://scenes/weapons/laser.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -36,3 +37,8 @@ func _physics_process(delta):
 		position.y = -16
 	elif position.y < -16:
 		position.y = 116
+	
+	if Input.is_action_just_pressed("shoot_laser"):
+		var laser = Laser.instantiate()
+		laser.position = Vector2(position+Vector2(-10, 0))
+		get_parent().add_child(laser)

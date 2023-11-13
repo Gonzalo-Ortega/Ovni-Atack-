@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://bydr45b03hedm"]
+
+[ext_resource type="Script" path="res://scripts/map_generator.gd" id="1_awnw8"]
+
+[node name="map_generator" type="TileMap"]
+format = 2
+script = ExtResource("1_awnw8")

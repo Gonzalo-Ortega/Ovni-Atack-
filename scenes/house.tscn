@@ -18,11 +18,12 @@ animations = [{
 size = Vector2(16, 14)
 
 [node name="House" type="Area2D"]
+collision_layer = 20
 script = ExtResource("1_cnimp")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_d6rbs")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["obstacle"]]
 position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_dc0ge")
