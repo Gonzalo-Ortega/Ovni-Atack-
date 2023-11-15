@@ -19,8 +19,8 @@ boot_splash/use_filter=false
 
 [display]
 
-window/size/viewport_width=176
-window/size/viewport_height=99
+window/size/viewport_width=178
+window/size/viewport_height=100
 window/size/window_width_override=528
 window/size/window_height_override=297
 window/stretch/mode="viewport"

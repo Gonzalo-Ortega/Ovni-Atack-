@@ -25,7 +25,7 @@ func _raycast_maximun_length():
 	var result = space_state.intersect_ray(query)
 	
 	if result:
-		new_maximum_length = result.position.x-position.x
+		new_maximum_length = result.position.x-global_position.x
 
 	if maximum_length != new_maximum_length:
 		_set_size(new_maximum_length)

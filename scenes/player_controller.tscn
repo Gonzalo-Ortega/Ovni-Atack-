@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://ciqwavndeb0qt"]
+
+[ext_resource type="PackedScene" uid="uid://dl42c8w8urp78" path="res://scenes/player.tscn" id="1_trr1t"]
+[ext_resource type="Script" path="res://scripts/player_controller.gd" id="1_vo37j"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kv4pc"]
+size = Vector2(166, 88)
+
+[node name="PlayerController" type="Area2D"]
+script = ExtResource("1_vo37j")
+
+[node name="Player" parent="." instance=ExtResource("1_trr1t")]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="PlayableSpace" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_kv4pc")
+disabled = true

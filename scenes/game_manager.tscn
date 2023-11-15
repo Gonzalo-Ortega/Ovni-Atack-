@@ -1,16 +1,21 @@
-[gd_scene load_steps=3 format=3 uid="uid://cuar8lp1vg3ci"]
+[gd_scene load_steps=4 format=3 uid="uid://cuar8lp1vg3ci"]
 
-[ext_resource type="PackedScene" uid="uid://dl42c8w8urp78" path="res://scenes/player.tscn" id="1_3wiyr"]
-[ext_resource type="PackedScene" uid="uid://by1nf4ix2m4nf" path="res://scenes/house_spawner.tscn" id="1_x0px0"]
+[ext_resource type="Script" path="res://scripts/game_manager.gd" id="1_dtw28"]
+[ext_resource type="PackedScene" uid="uid://ciqwavndeb0qt" path="res://scenes/player_controller.tscn" id="2_s67rw"]
+[ext_resource type="PackedScene" uid="uid://bydr45b03hedm" path="res://scenes/map_generator.tscn" id="3_caqh5"]
 
 [node name="GameManager" type="Node"]
+script = ExtResource("1_dtw28")
 
 [node name="Background" type="ColorRect" parent="."]
-offset_right = 176.0
-offset_bottom = 99.0
+anchors_preset = -1
+anchor_left = -0.021
+offset_left = 2.738
+offset_right = 178.0
+offset_bottom = 100.0
 color = Color(0, 0, 0, 1)
 
-[node name="HouseSpawner" parent="." instance=ExtResource("1_x0px0")]
+[node name="Map" parent="." instance=ExtResource("3_caqh5")]
 
-[node name="Player" parent="." instance=ExtResource("1_3wiyr")]
-position = Vector2(23, 24)
+[node name="PlayerController" parent="." instance=ExtResource("2_s67rw")]
+position = Vector2(89, 50)
