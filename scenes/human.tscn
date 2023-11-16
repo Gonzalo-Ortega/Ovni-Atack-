@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://bj07vyo5k18r3"]
+[gd_scene load_steps=9 format=3 uid="uid://bj07vyo5k18r3"]
 
 [ext_resource type="Texture2D" uid="uid://c84125njfsmjm" path="res://assets/person.png" id="1_1t4wy"]
+[ext_resource type="Script" path="res://scripts/human.gd" id="1_n00a3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6usb3"]
 size = Vector2(8, 8)
@@ -42,6 +43,7 @@ animations = [{
 }]
 
 [node name="Human" type="Area2D"]
+script = ExtResource("1_n00a3")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_6usb3")
@@ -51,3 +53,5 @@ sprite_frames = SubResource("SpriteFrames_7k4am")
 frame_progress = 0.857059
 
 [node name="Timer" type="Timer" parent="."]
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]

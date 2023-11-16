@@ -2,7 +2,7 @@ extends TileMap
 
 var House = preload("res://scenes/house.tscn")
 
-var chunk_size = Vector2i(32, 16)
+var chunk_size = Vector2i(32, 13)
 var used_grid = []
 
 # Called when the node enters the scene tree for the first time.
@@ -44,7 +44,7 @@ func _generate_houses(tile_pos):
 		Vector2i(1,0), Vector2i(1, 1), Vector2i(1, 2),
 		Vector2i(2,0), Vector2i(2, 1), Vector2i(2, 2),
 	]
-	var num_of_houses = randi_range(0, 5) # TODO extract to a resource
+	var num_of_houses = randi_range(0, 10) # TODO extract to a resource
 	for i in range(num_of_houses):
 		var house_pos = Vector2i(randi_range(0, chunk_size.x-house_size.x), randi_range(0, chunk_size.y-house_size.y))
 		var collision = false

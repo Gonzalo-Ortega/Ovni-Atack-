@@ -12,6 +12,6 @@ func _process(delta):
 	pass
 
 func _physics_process(delta):
-	$PlayerController.position += Vector2(0.5, 0)
+	$PlayerController.position += Vector2(0, 0)
 	
 	$Map.update_map_for_position($PlayerController.global_position)

@@ -20,17 +20,13 @@ func _physics_process(delta):
 		$Player.velocity += input_vector * $Player.acceleration * delta
 		$Player.velocity = $Player.velocity.limit_length($Player.max_speed)
 	
-	var new_player_pos = $Player.position + $Player.velocity
+	$Player.position += $Player.velocity
+	
+	var new_player_pos = $Player.position
 	var player_rect = (Rect2)($Player/CollisionShape2D.shape.get_rect())
 	player_rect.position += new_player_pos
 	var playable_space_rect = (Rect2)($PlayableSpace.shape.get_rect())
 
-	if playable_space_rect.encloses(player_rect):
-		$Player.position = new_player_pos
-	else:
-		$Player.velocity = -$Player.velocity*0.5
-		$Player.position *= 0.99
-		$Player.position += $Player.velocity
 
 	if Input.is_action_just_pressed("shoot_laser"):
 		var laser = $Player.Laser.instantiate()
