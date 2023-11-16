@@ -1,9 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://cuar8lp1vg3ci"]
+[gd_scene load_steps=4 format=3 uid="uid://cuar8lp1vg3ci"]
 
 [ext_resource type="Script" path="res://scripts/game_manager.gd" id="1_dtw28"]
 [ext_resource type="PackedScene" uid="uid://ciqwavndeb0qt" path="res://scenes/player_controller.tscn" id="2_s67rw"]
 [ext_resource type="PackedScene" uid="uid://bydr45b03hedm" path="res://scenes/map_generator.tscn" id="3_caqh5"]
-[ext_resource type="PackedScene" uid="uid://bj07vyo5k18r3" path="res://scenes/human.tscn" id="4_vi0vt"]
 
 [node name="GameManager" type="Node"]
 script = ExtResource("1_dtw28")
@@ -20,5 +19,3 @@ color = Color(0, 0, 0, 1)
 
 [node name="PlayerController" parent="." instance=ExtResource("2_s67rw")]
 position = Vector2(89, 50)
-
-[node name="Human" parent="." instance=ExtResource("4_vi0vt")]

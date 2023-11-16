@@ -18,6 +18,7 @@ animations = [{
 size = Vector2(16, 14)
 
 [node name="House" type="Area2D"]
+y_sort_enabled = true
 collision_layer = 20
 script = ExtResource("1_cnimp")
 

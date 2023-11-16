@@ -43,6 +43,7 @@ animations = [{
 }]
 
 [node name="Human" type="Area2D"]
+y_sort_enabled = true
 script = ExtResource("1_n00a3")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -55,3 +56,13 @@ frame_progress = 0.857059
 [node name="Timer" type="Timer" parent="."]
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+
+[node name="Objective" type="Marker2D" parent="."]
+
+[node name="Timer" type="Timer" parent="Objective"]
+process_callback = 0
+wait_time = 0.5
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Objective/Timer" to="." method="_on_new_pos_timeout"]

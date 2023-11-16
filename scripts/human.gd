@@ -8,9 +8,30 @@ func _ready():
 var velocity = Vector2(0,0)
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
-	$NavigationAgent2D.target_position = get_global_mouse_position()
+	$NavigationAgent2D.target_position = $Objective.global_position
 	var dir = (Vector2)($NavigationAgent2D.get_next_path_position() - global_position)
 	if dir.length() > 1:
 		dir = dir.normalized()
 	
 	position += dir
+
+func _on_new_pos_timeout():
+	
+	var human_threads = get_tree().get_nodes_in_group("human_thread")
+	var max_time = 1
+	var min_time = 0.2
+	var threads_position = Vector2(0, 0)
+	for node in human_threads:
+		node = node as Node2D
+		var distance = (node.global_position-global_position)
+		if distance.length() < 40:
+			max_time = 1
+			min_time = 0.2
+			distance = distance.rotated(randf_range(0, 0.6))
+			threads_position = distance.normalized() * 30
+	if threads_position.length() > 0.1:
+		$Objective.position = -threads_position
+	else:
+		$Objective.position = Vector2(randf_range(-1, 1), randf_range(-1, 1)) * 50 # TODO move to resource
+	
+	$Objective/Timer.start(randf_range(min_time, max_time))

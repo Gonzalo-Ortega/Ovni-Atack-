@@ -1,6 +1,7 @@
 extends TileMap
 
 var House = preload("res://scenes/house.tscn")
+var Human = preload("res://scenes/human.tscn")
 
 var chunk_size = Vector2i(32, 13)
 var used_grid = []
@@ -36,6 +37,12 @@ func _spawn_house(position):
 	house.position = position
 	house.add_to_group(_get_chunk_group_name(last_chunk_position))
 	$Entities.add_child(house)
+
+func _spawn_human(position):
+	var human = Human.instantiate()
+	human.position = position
+	human.add_to_group(_get_chunk_group_name(last_chunk_position))
+	$Entities.add_child(human)
 
 func _generate_houses(tile_pos):
 	var house_size = Vector2i(3, 3) # House grid size
@@ -92,6 +99,14 @@ func _generate_road(tile_pos):
 			last_up += 1
 	last_road_exit = current_entry
 
+func _generate_humans(tile_pos):
+	var humans = randi_range(4, 10)
+	for i in humans:
+		var human_pos = Vector2i(randi_range(0, chunk_size.x-1), randi_range(0, chunk_size.y-1))
+		if not used_grid[human_pos.x][human_pos.y]:
+			var human_spawn_pos = map_to_local(human_pos+tile_pos)
+			_spawn_human(human_spawn_pos)
+
 func _clear_user_grid():
 	used_grid = []
 	for i in range(chunk_size.x):
@@ -124,3 +139,4 @@ func generate_chunk(tile_pos):
 	_fill_with_blank(tile_pos)
 	_generate_road(tile_pos)
 	_generate_houses(tile_pos)
+	_generate_humans(tile_pos)
