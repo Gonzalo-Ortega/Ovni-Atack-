@@ -1,0 +1,55 @@
+[gd_scene load_steps=7 format=3 uid="uid://dbbxurqyvk8mn"]
+
+[ext_resource type="Script" path="res://scripts/menu.gd" id="1_5lleg"]
+[ext_resource type="FontFile" uid="uid://dwe41n0e6biry" path="res://assets/fonts/Minimal5.ttf" id="3_r7bug"]
+[ext_resource type="Texture2D" uid="uid://c1vtwrfptqilb" path="res://assets/fonts/tittle.png" id="3_uq0jo"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kjvxr"]
+atlas = ExtResource("3_uq0jo")
+region = Rect2(0, 0, 131, 69)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3sea8"]
+atlas = ExtResource("3_uq0jo")
+region = Rect2(131, 0, 131, 69)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8qkf4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kjvxr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3sea8")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Menu" type="Node"]
+script = ExtResource("1_5lleg")
+
+[node name="TittleScreen" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Background" type="ColorRect" parent="TittleScreen"]
+layout_mode = 2
+offset_right = 178.0
+offset_bottom = 100.0
+color = Color(0, 0, 0, 1)
+
+[node name="Tittle" type="AnimatedSprite2D" parent="TittleScreen"]
+position = Vector2(88, 49)
+sprite_frames = SubResource("SpriteFrames_8qkf4")
+
+[node name="Text" type="Label" parent="TittleScreen"]
+offset_left = 35.0
+offset_top = 82.0
+offset_right = 144.0
+offset_bottom = 98.0
+theme_override_fonts/font = ExtResource("3_r7bug")
+text = "Press E, or click to start."
+autowrap_mode = 2

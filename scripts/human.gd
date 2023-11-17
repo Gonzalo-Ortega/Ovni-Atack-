@@ -1,12 +1,12 @@
 extends Area2D
 
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
 var velocity = Vector2(0,0)
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+
+
+func _ready():
+	$AnimatedSprite2D.play()
+
+
 func _physics_process(delta):
 	$NavigationAgent2D.target_position = $Objective.global_position
 	var dir = (Vector2)($NavigationAgent2D.get_next_path_position() - global_position)
@@ -14,6 +14,7 @@ func _physics_process(delta):
 		dir = dir.normalized()
 	
 	position += dir
+
 
 func _on_new_pos_timeout():
 	

@@ -5,10 +5,9 @@ extends Area2D
 func _ready():
 	pass 
 
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
-
-	
 	var input_vector = Vector2(0, 0)
 	input_vector.x = Input.get_action_strength("right") - Input.get_action_strength("left")
 	input_vector.y = Input.get_action_strength("down") - Input.get_action_strength("up")
@@ -28,7 +27,7 @@ func _physics_process(delta):
 	var playable_space_rect = (Rect2)($PlayableSpace.shape.get_rect())
 
 
-	if Input.is_action_just_pressed("shoot_laser"):
+	if Input.is_action_just_pressed("shoot_laser") and GlobalVariables.laser > 0:
 		var laser = $Player.Laser.instantiate()
 		laser.position = Vector2(Vector2(10, 0))
 		$Player.add_child(laser)

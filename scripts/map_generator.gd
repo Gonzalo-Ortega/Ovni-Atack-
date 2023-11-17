@@ -29,8 +29,10 @@ var tiles_dict = {
 	"road_down_right": Vector2i(0,1)
 }
 
+
 func _get_chunk_group_name(chunk):
 	return "entities_in_chunk_"+str(chunk)
+
 
 func _spawn_house(position):
 	var house = House.instantiate()
@@ -38,11 +40,13 @@ func _spawn_house(position):
 	house.add_to_group(_get_chunk_group_name(last_chunk_position))
 	$Entities.add_child(house)
 
+
 func _spawn_human(position):
 	var human = Human.instantiate()
 	human.position = position
 	human.add_to_group(_get_chunk_group_name(last_chunk_position))
 	$Entities.add_child(human)
+
 
 func _generate_houses(tile_pos):
 	var house_size = Vector2i(3, 3) # House grid size
@@ -66,6 +70,8 @@ func _generate_houses(tile_pos):
 			_spawn_house(house_spawn_pos)
 
 var last_road_exit = randi_range(0, chunk_size.y)
+
+
 func _generate_road(tile_pos):
 	var current_entry = last_road_exit
 	var last_up = 0
@@ -99,6 +105,7 @@ func _generate_road(tile_pos):
 			last_up += 1
 	last_road_exit = current_entry
 
+
 func _generate_humans(tile_pos):
 	var humans = randi_range(4, 10)
 	for i in humans:
@@ -106,6 +113,7 @@ func _generate_humans(tile_pos):
 		if not used_grid[human_pos.x][human_pos.y]:
 			var human_spawn_pos = map_to_local(human_pos+tile_pos)
 			_spawn_human(human_spawn_pos)
+
 
 func _clear_user_grid():
 	used_grid = []
@@ -123,14 +131,14 @@ func update_map_for_position(position):
 		last_chunk_position += 1
 		generate_chunk(Vector2i(chunk_size.x*current_chunk, 0))
 
+
 func _fill_with_blank(tile_pos):
 	for x in range(chunk_size.x):
 		for y in range(chunk_size.y):
 			set_cell(0, tile_pos+Vector2i(x, y), 0, tiles_dict["empty"])
-	
+
 
 func generate_chunk(tile_pos):
-
 	# Remove all entities in old chunks
 	get_tree().call_group(_get_chunk_group_name(last_chunk_position-3), "queue_free")
 	
