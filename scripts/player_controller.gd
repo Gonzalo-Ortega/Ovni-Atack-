@@ -27,7 +27,17 @@ func _physics_process(delta):
 	player_rect.position += new_player_pos
 	var playable_space_rect = (Rect2)($PlayableSpace.shape.get_rect())
 
-
+	if $Player.global_position.y < -10:
+		$Player.global_position.y = 120
+	if $Player.global_position.y > 130:
+		$Player.global_position.y = 0
+	
+	if $Player.position.x < -70:
+		$Player.position.x = -70
+	if $Player.position.x > 70:
+		$Player.position.x = 70
+	
+	
 	if Input.is_action_just_pressed("shoot_laser") and GlobalVariables.laser > 0:
 		var laser = Laser.instantiate()
 		laser.position = Vector2(Vector2(10, 0))
