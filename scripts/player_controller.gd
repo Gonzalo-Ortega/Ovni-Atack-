@@ -1,9 +1,8 @@
 extends Area2D
 
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	pass 
+	pass
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -31,4 +30,11 @@ func _physics_process(delta):
 		var laser = $Player.Laser.instantiate()
 		laser.position = Vector2(Vector2(10, 0))
 		$Player.add_child(laser)
+	
+	if Input.is_action_just_pressed("bomb") and GlobalVariables.bombs > 0:
+		$Bomb.play()
+		GlobalVariables.bombs -= 1
+	
+	if Input.is_action_just_pressed("explode") and GlobalVariables.explode > 0:
+		GlobalVariables.explode -= 1
 

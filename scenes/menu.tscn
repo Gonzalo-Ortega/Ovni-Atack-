@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://dbbxurqyvk8mn"]
+[gd_scene load_steps=8 format=3 uid="uid://dbbxurqyvk8mn"]
 
 [ext_resource type="Script" path="res://scripts/menu.gd" id="1_5lleg"]
 [ext_resource type="FontFile" uid="uid://dwe41n0e6biry" path="res://assets/fonts/Minimal5.ttf" id="3_r7bug"]
 [ext_resource type="Texture2D" uid="uid://c1vtwrfptqilb" path="res://assets/fonts/tittle.png" id="3_uq0jo"]
+[ext_resource type="AudioStream" uid="uid://ccrcwkyen22tf" path="res://assets/sound/explode.mp3" id="4_avaf0"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kjvxr"]
 atlas = ExtResource("3_uq0jo")
@@ -42,14 +43,61 @@ offset_bottom = 100.0
 color = Color(0, 0, 0, 1)
 
 [node name="Tittle" type="AnimatedSprite2D" parent="TittleScreen"]
-position = Vector2(88, 49)
+position = Vector2(87, 43)
 sprite_frames = SubResource("SpriteFrames_8qkf4")
 
 [node name="Text" type="Label" parent="TittleScreen"]
-offset_left = 35.0
-offset_top = 82.0
-offset_right = 144.0
-offset_bottom = 98.0
+layout_mode = 0
+offset_left = 51.0
+offset_top = 78.0
+offset_right = 129.0
+offset_bottom = 94.0
 theme_override_fonts/font = ExtResource("3_r7bug")
-text = "Press E, or click to start."
+text = "Press (E) to start."
 autowrap_mode = 2
+
+[node name="GameOverScreen" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Background" type="ColorRect" parent="GameOverScreen"]
+layout_mode = 2
+offset_right = 178.0
+offset_bottom = 100.0
+color = Color(0, 0, 0, 1)
+
+[node name="GameOver" type="Label" parent="GameOverScreen"]
+layout_mode = 0
+offset_left = 68.0
+offset_top = 25.0
+offset_right = 107.0
+offset_bottom = 39.0
+theme_override_fonts/font = ExtResource("3_r7bug")
+text = "GAME OVER"
+autowrap_mode = 2
+
+[node name="Score" type="Label" parent="GameOverScreen"]
+layout_mode = 0
+offset_left = 68.0
+offset_top = 60.0
+offset_right = 107.0
+offset_bottom = 74.0
+theme_override_fonts/font = ExtResource("3_r7bug")
+text = "SCORE: 000"
+autowrap_mode = 2
+
+[node name="Text" type="Label" parent="GameOverScreen"]
+layout_mode = 0
+offset_left = 46.0
+offset_top = 71.0
+offset_right = 143.0
+offset_bottom = 85.0
+theme_override_fonts/font = ExtResource("3_r7bug")
+text = "Press (Esc) to restart."
+autowrap_mode = 2
+
+[node name="Explode" type="AudioStreamPlayer" parent="GameOverScreen"]
+stream = ExtResource("4_avaf0")

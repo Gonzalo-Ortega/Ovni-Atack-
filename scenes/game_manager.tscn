@@ -16,16 +16,56 @@ anchors_preset = -1
 anchor_left = -0.021
 offset_left = 3.738
 offset_right = 178.0
-offset_bottom = 9.0
+offset_bottom = 14.0
 color = Color(0, 0, 0, 1)
 
-[node name="LaserLabel" type="Label" parent="UI"]
-offset_left = 1.0
-offset_top = -4.0
-offset_right = 179.0
-offset_bottom = 10.0
+[node name="Controls" type="Label" parent="UI"]
+offset_left = 2.0
+offset_top = -5.0
+offset_right = 45.0
+offset_bottom = 9.0
 theme_override_fonts/font = ExtResource("2_4io0v")
-text = "Laser"
+text = "(WASD) MOVE"
+
+[node name="Esc" type="Label" parent="UI"]
+offset_left = 58.0
+offset_top = -5.0
+offset_right = 96.0
+offset_bottom = 9.0
+theme_override_fonts/font = ExtResource("2_4io0v")
+text = "(Esc) Exit"
+
+[node name="Score" type="Label" parent="UI"]
+offset_left = 137.0
+offset_top = -5.0
+offset_right = 176.0
+offset_bottom = 9.0
+theme_override_fonts/font = ExtResource("2_4io0v")
+text = "SCORE: 000"
+
+[node name="Laser" type="Label" parent="UI"]
+offset_left = 2.0
+offset_top = 1.0
+offset_right = 56.0
+offset_bottom = 15.0
+theme_override_fonts/font = ExtResource("2_4io0v")
+text = "(E) Laser: ooo"
+
+[node name="Bomb" type="Label" parent="UI"]
+offset_left = 66.0
+offset_top = 1.0
+offset_right = 125.0
+offset_bottom = 15.0
+theme_override_fonts/font = ExtResource("2_4io0v")
+text = "(Q) Bomb: 5"
+
+[node name="Explode" type="Label" parent="UI"]
+offset_left = 116.0
+offset_top = 1.0
+offset_right = 168.0
+offset_bottom = 15.0
+theme_override_fonts/font = ExtResource("2_4io0v")
+text = "(R) Explode: 1"
 
 [node name="Map" parent="." instance=ExtResource("3_caqh5")]
 
