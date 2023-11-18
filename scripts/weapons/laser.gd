@@ -11,7 +11,7 @@ func _ready():
 
 func _set_size(new_size):
 	maximum_length = new_size
-	$LaserArea.position = Vector2(maximum_length/2, -LASER_AREA/2)
+	$LaserArea.position = Vector2(maximum_length/2, -LASER_AREA/2+3)
 	$LaserArea/LaserCollisionShape.shape.size = Vector2(maximum_length, LASER_AREA)
 	queue_redraw()
 
@@ -42,4 +42,13 @@ func _physics_process(delta):
 
 
 func _draw():
-	draw_line(Vector2(0,-LASER_AREA/2), Vector2(maximum_length, -LASER_AREA/2), Color.WHITE, LASER_AREA)
+	draw_line(Vector2(0,-LASER_AREA/2+3), Vector2(maximum_length, -LASER_AREA/2+3), Color.WHITE, LASER_AREA)
+
+
+func _on_laser_area_body_entered(body):
+	print(typeof(body))
+
+
+func _on_laser_area_area_entered(area: Area2D):
+	if "laser_kills" in area.get_groups():
+		area.die()

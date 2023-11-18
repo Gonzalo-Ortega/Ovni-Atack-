@@ -1,0 +1,79 @@
+[gd_scene load_steps=10 format=3 uid="uid://deoykxuswp7kx"]
+
+[ext_resource type="Script" path="res://scripts/gasstation.gd" id="1_14j7j"]
+[ext_resource type="Texture2D" uid="uid://66kbyfjef7c2" path="res://assets/gas-station.png" id="2_hilfd"]
+[ext_resource type="Texture2D" uid="uid://ft2sldj3fwas" path="res://assets/gas-station_destroyed.png" id="3_vrf7v"]
+[ext_resource type="AudioStream" uid="uid://ccrcwkyen22tf" path="res://assets/sound/explode.mp3" id="4_mbon6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o3ne7"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cnkf5"]
+atlas = ExtResource("2_hilfd")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qycgh"]
+atlas = ExtResource("3_vrf7v")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7teb1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cnkf5")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qycgh")
+}],
+"loop": true,
+"name": &"destroyed",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ueh2e"]
+radius = 79.0
+
+[node name="GasStation" type="Area2D" groups=["bomb_kills"]]
+collision_layer = 20
+collision_mask = 20
+script = ExtResource("1_14j7j")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_o3ne7")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_7teb1")
+animation = &"destroyed"
+
+[node name="Explossion" type="Area2D" parent="."]
+collision_layer = 7
+collision_mask = 7
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Explossion"]
+shape = SubResource("CircleShape2D_ueh2e")
+
+[node name="ExplossionParticles" type="CPUParticles2D" parent="Explossion"]
+emitting = false
+amount = 64
+lifetime = 0.4
+one_shot = true
+explosiveness = 1.0
+emission_shape = 1
+emission_sphere_radius = 14.19
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 190.0
+initial_velocity_max = 190.0
+scale_amount_min = 4.0
+scale_amount_max = 4.0
+
+[node name="Timer" type="Timer" parent="Explossion"]
+wait_time = 0.4
+one_shot = true
+
+[node name="Explode" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_mbon6")

@@ -15,9 +15,17 @@ func _physics_process(delta):
 	
 	position += dir
 
+var is_dying = false
+func die():
+	if not is_dying:
+		is_dying = true
+		GlobalVariables.score += 1
+	$AnimatedSprite2D.hide()
+	$CollisionShape2D.queue_free()
+	$DeathTimer.start(-1)
+	$DeathParticles.restart()
 
 func _on_new_pos_timeout():
-	
 	var human_threads = get_tree().get_nodes_in_group("human_thread")
 	var max_time = 1
 	var min_time = 0.2
@@ -34,5 +42,5 @@ func _on_new_pos_timeout():
 		$Objective.position = -threads_position
 	else:
 		$Objective.position = Vector2(randf_range(-1, 1), randf_range(-1, 1)) * 50 # TODO move to resource
-	
-	$Objective/Timer.start(randf_range(min_time, max_time))
+
+

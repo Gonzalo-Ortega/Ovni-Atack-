@@ -1,5 +1,7 @@
 extends Area2D
 
+var Laser = preload("res://scenes/weapons/laser.tscn")
+var Bomb = preload("res://scenes/weapons/bomb.tscn")
 
 func _ready():
 	pass
@@ -27,14 +29,24 @@ func _physics_process(delta):
 
 
 	if Input.is_action_just_pressed("shoot_laser") and GlobalVariables.laser > 0:
-		var laser = $Player.Laser.instantiate()
+		var laser = Laser.instantiate()
 		laser.position = Vector2(Vector2(10, 0))
 		$Player.add_child(laser)
 	
 	if Input.is_action_just_pressed("bomb") and GlobalVariables.bombs > 0:
-		$Bomb.play()
+		var bomb = Bomb.instantiate()
+		bomb.position = $Player.position
+		add_child(bomb)
 		GlobalVariables.bombs -= 1
 	
 	if Input.is_action_just_pressed("explode") and GlobalVariables.explode > 0:
-		GlobalVariables.explode -= 1
+		if $Player.explosion < 0:
+			$NukeTimer.start(-1)
+			$Player.explosion = 20
+			$Player.queue_redraw()
+			$Player/Explode.play()
 
+
+
+func _on_nuke_timer_timeout():
+	GlobalVariables.explode -= 1

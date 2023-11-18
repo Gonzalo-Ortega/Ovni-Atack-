@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://dl42c8w8urp78"]
+[gd_scene load_steps=6 format=3 uid="uid://dl42c8w8urp78"]
 
 [ext_resource type="Texture2D" uid="uid://duanugkfvsgl3" path="res://assets/alien.png" id="1_3gx41"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_t88s0"]
+[ext_resource type="AudioStream" uid="uid://dduw3ilob3jli" path="res://assets/sound/load.mp3" id="3_fiyt1"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_5qey1"]
 animations = [{
@@ -25,3 +26,6 @@ sprite_frames = SubResource("SpriteFrames_5qey1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_mn8mo")
+
+[node name="Explode" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_fiyt1")

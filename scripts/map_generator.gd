@@ -2,6 +2,8 @@ extends TileMap
 
 var House = preload("res://scenes/house.tscn")
 var Human = preload("res://scenes/human.tscn")
+var Car = preload("res://scenes/car.tscn")
+var GasStation = preload("res://scenes/gasstation.tscn")
 
 var chunk_size = Vector2i(32, 13)
 var used_grid = []
@@ -33,6 +35,11 @@ var tiles_dict = {
 func _get_chunk_group_name(chunk):
 	return "entities_in_chunk_"+str(chunk)
 
+func _spawn_gas_station(position):
+	var house = GasStation.instantiate()
+	house.position = position
+	house.add_to_group(_get_chunk_group_name(last_chunk_position))
+	$Entities.add_child(house)
 
 func _spawn_house(position):
 	var house = House.instantiate()
@@ -47,6 +54,32 @@ func _spawn_human(position):
 	human.add_to_group(_get_chunk_group_name(last_chunk_position))
 	$Entities.add_child(human)
 
+func _spawn_car(position):
+	var human = Car.instantiate()
+	human.position = position
+	human.add_to_group(_get_chunk_group_name(last_chunk_position))
+	$Entities.add_child(human)
+
+func _generate_gas_stations(tile_pos): # TODO rename variable names
+	var house_size = Vector2i(3, 3) # Gas house grid size
+	var house_pattern = [
+		Vector2i(0,0), Vector2i(0, 1), Vector2i(0, 2),
+		Vector2i(1,0), Vector2i(1, 1), Vector2i(1, 2),
+		Vector2i(2,0), Vector2i(2, 1), Vector2i(2, 2),
+	]
+	var num_of_houses = randi_range(0, 2) # TODO extract to a resource
+	for i in range(num_of_houses):
+		var house_pos = Vector2i(randi_range(0, chunk_size.x-house_size.x), randi_range(0, chunk_size.y-house_size.y))
+		var collision = false
+		for vec in house_pattern:
+				collision = collision or used_grid[vec.x+house_pos.x][vec.y+house_pos.y]
+		if not collision:
+			for vec in house_pattern:
+					var grid_pos = house_pos+vec
+					used_grid[grid_pos.x][grid_pos.y] = true
+					set_cell(0, tile_pos+grid_pos, 0, tiles_dict["navigation_obstacle"])
+			var house_spawn_pos = map_to_local(house_pos+tile_pos)+Vector2(8, 7)
+			_spawn_gas_station(house_spawn_pos)
 
 func _generate_houses(tile_pos):
 	var house_size = Vector2i(3, 3) # House grid size
@@ -100,6 +133,9 @@ func _generate_road(tile_pos):
 			current_entry = upto
 		else:
 			if current_entry >= 0 and current_entry < chunk_size.y:
+				if randi_range(0, 10) > 8:
+						var house_spawn_pos = map_to_local(tile_pos+Vector2i(x, current_entry))
+						_spawn_car(house_spawn_pos)
 				set_cell(0, tile_pos+Vector2i(x, current_entry), 0, tiles_dict["road_side"])
 				used_grid[x][current_entry] = true
 			last_up += 1
@@ -146,5 +182,6 @@ func generate_chunk(tile_pos):
 	
 	_fill_with_blank(tile_pos)
 	_generate_road(tile_pos)
+	_generate_gas_stations(tile_pos)
 	_generate_houses(tile_pos)
 	_generate_humans(tile_pos)

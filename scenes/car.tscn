@@ -1,0 +1,114 @@
+[gd_scene load_steps=12 format=3 uid="uid://d0qknocyuygp2"]
+
+[ext_resource type="Script" path="res://scripts/car.gd" id="1_x437e"]
+[ext_resource type="Texture2D" uid="uid://b8oci1arshwcy" path="res://assets/car.png" id="2_4qf6h"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6usb3"]
+size = Vector2(8, 4)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ojjsv"]
+atlas = ExtResource("2_4qf6h")
+region = Rect2(0, 0, 16, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kajn4"]
+atlas = ExtResource("2_4qf6h")
+region = Rect2(16, 0, 16, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oc36v"]
+atlas = ExtResource("2_4qf6h")
+region = Rect2(32, 0, 16, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l4w0l"]
+atlas = ExtResource("2_4qf6h")
+region = Rect2(48, 0, 16, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3exjc"]
+atlas = ExtResource("2_4qf6h")
+region = Rect2(64, 0, 16, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sgdlb"]
+atlas = ExtResource("2_4qf6h")
+region = Rect2(80, 0, 16, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7k4am"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ojjsv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kajn4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oc36v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l4w0l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3exjc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sgdlb")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kjs0n"]
+radius = 2.0
+
+[node name="Car" type="Area2D" groups=["bomb_kills", "laser_kills"]]
+y_sort_enabled = true
+script = ExtResource("1_x437e")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_6usb3")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_7k4am")
+frame_progress = 0.857059
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_desired_distance = 2.0
+target_desired_distance = 1.0
+path_max_distance = 300.0
+
+[node name="Objective" type="Marker2D" parent="."]
+
+[node name="Timer" type="Timer" parent="Objective"]
+process_callback = 0
+wait_time = 0.5
+one_shot = true
+autostart = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objective"]
+shape = SubResource("CircleShape2D_kjs0n")
+
+[node name="DeathParticles" type="CPUParticles2D" parent="."]
+emitting = false
+lifetime = 0.2
+one_shot = true
+explosiveness = 0.95
+emission_shape = 1
+emission_sphere_radius = 4.88
+direction = Vector2(0, -1)
+spread = 128.64
+gravity = Vector2(0, 0)
+initial_velocity_min = 70.71
+initial_velocity_max = 70.71
+angular_velocity_min = 1.5
+angular_velocity_max = 1.5
+linear_accel_min = -5.0
+linear_accel_max = -4.0
+damping_min = 76.768
+damping_max = 76.768
+
+[node name="DeathTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="Objective/Timer" to="." method="_on_new_pos_timeout"]
+[connection signal="timeout" from="DeathTimer" to="." method="queue_free"]

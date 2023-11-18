@@ -1,0 +1,102 @@
+[gd_scene load_steps=11 format=3 uid="uid://cx7r5obrfow65"]
+
+[ext_resource type="Script" path="res://scripts/weapons/bomb.gd" id="1_mrqgo"]
+[ext_resource type="Texture2D" uid="uid://cma0kwrh67lnl" path="res://assets/bomb.png" id="1_o6o67"]
+[ext_resource type="AudioStream" uid="uid://doreeibx1n08" path="res://assets/sound/bomb.mp3" id="3_pnwn1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r815g"]
+atlas = ExtResource("1_o6o67")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ckh8k"]
+atlas = ExtResource("1_o6o67")
+region = Rect2(8, 0, 8, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kh2o1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r815g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ckh8k")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8b1i2"]
+radius = 30.0666
+
+[sub_resource type="Animation" id="Animation_e8qdv"]
+resource_name = "fly_down"
+length = 0.9
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BombArea:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.5, 0.7, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(19, -4), Vector2(44, 0), Vector2(52, -3), Vector2(59, -1)]
+}
+
+[sub_resource type="Animation" id="Animation_t7yas"]
+resource_name = "explode"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_knfd8"]
+_data = {
+"explode": SubResource("Animation_t7yas"),
+"fly_down": SubResource("Animation_e8qdv")
+}
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_mrqgo")
+
+[node name="BombArea" type="Area2D" parent="."]
+collision_layer = 7
+collision_mask = 7
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="BombArea"]
+sprite_frames = SubResource("SpriteFrames_kh2o1")
+frame_progress = 0.224261
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BombArea"]
+shape = SubResource("CircleShape2D_8b1i2")
+
+[node name="Torch" type="CPUParticles2D" parent="BombArea"]
+gravity = Vector2(0, 0)
+radial_accel_min = 8.08
+radial_accel_max = 8.08
+
+[node name="ExplosionParticles" type="CPUParticles2D" parent="BombArea"]
+emitting = false
+amount = 32
+lifetime = 0.2
+one_shot = true
+explosiveness = 1.0
+emission_shape = 1
+emission_sphere_radius = 2.55
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 202.02
+initial_velocity_max = 242.42
+
+[node name="Timer" type="Timer" parent="BombArea"]
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+reset_on_save = false
+libraries = {
+"": SubResource("AnimationLibrary_knfd8")
+}
+
+[node name="BombSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_pnwn1")
+
+[connection signal="timeout" from="BombArea/Timer" to="." method="_on_timer_timeout"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

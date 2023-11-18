@@ -42,7 +42,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Human" type="Area2D"]
+[node name="Human" type="Area2D" groups=["bomb_kills", "laser_kills"]]
 y_sort_enabled = true
 script = ExtResource("1_n00a3")
 
@@ -65,4 +65,27 @@ wait_time = 0.5
 one_shot = true
 autostart = true
 
+[node name="DeathParticles" type="CPUParticles2D" parent="."]
+emitting = false
+lifetime = 0.2
+one_shot = true
+explosiveness = 0.95
+emission_shape = 1
+emission_sphere_radius = 4.88
+direction = Vector2(0, -1)
+spread = 128.64
+gravity = Vector2(0, 0)
+initial_velocity_min = 70.71
+initial_velocity_max = 70.71
+angular_velocity_min = 1.5
+angular_velocity_max = 1.5
+linear_accel_min = -5.0
+linear_accel_max = -4.0
+damping_min = 76.768
+damping_max = 76.768
+
+[node name="DeathTimer" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="timeout" from="Objective/Timer" to="." method="_on_new_pos_timeout"]
+[connection signal="timeout" from="DeathTimer" to="." method="queue_free"]
